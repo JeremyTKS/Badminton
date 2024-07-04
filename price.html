@@ -12,10 +12,12 @@
     </header>
     <div class="box priceList">
         <div class="form">
-            <label for="dateSelector">Select Date:</label>
-            <select id="dateSelector">
-                <option value="" disabled selected>Select a Date</option>
-            </select>
+            <div class="centered">
+                <label for="dateSelector">Select Date:</label>
+                <select id="dateSelector">
+                    <option value="" disabled selected>Select a Date</option>
+                </select>
+            </div>
             <table id="courtTable">
                 <caption>Court Pricing</caption>
                 <tr>
@@ -57,10 +59,13 @@
                     <td colspan="2"><div id="courtPrice" class="priceDisplay">Court Price: RM 0</div></td>
                 </tr>
             </table>
-
             <table id="shuttlecockTable">
-                <caption>Shuttlecock Pricing</caption>
-                <button id="addShuttlecockButton">Add</button>
+                <caption>
+                    <div class="caption-container">
+                        <span>Shuttlecock Pricing</span>
+                        <button id="addShuttlecockButton">Add</button>
+                    </div>
+                </caption>
                 <tr>
                     <td><label for="shuttlecockBrand">Select Brand:</label></td>
                     <td>
@@ -83,7 +88,6 @@
                     <td><label for="quantityInput">Enter Quantity:</label></td>
                     <td><input type="number" id="quantityInput" min="1" value="1"></td>
                 </tr>
-                <!-- Remove the static shuttlecock price display -->
                 <tr>
                     <td colspan="2">
                         <div id="shuttlecockPrice" class="priceDisplay">Shuttlecock Price: RM 0</div>
@@ -93,7 +97,7 @@
 
             <div id="totalPrice" class="priceDisplay">Total Price: RM 0</div>
 
-            <button id="calculateButton">Calculate Total</button>
+            <button id="calculateButton" class="calculateButton">Calculate</button>
             <button id="backButton" class="backButton">Back</button>
         </div>
     </div>

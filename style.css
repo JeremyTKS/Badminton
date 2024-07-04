@@ -167,8 +167,7 @@ canvas {
     .box .form h2 {
         font-size: 35px;
     }
-    .box .form form .inputbox span,
-    .box .form form .imgbox span {
+    .box .form form .inputbox span {
         font-size: 12px;
     }
     .box .form form .submit {
@@ -189,8 +188,7 @@ canvas {
     .box .form h2 {
         font-size: 30px;
     }
-    .box .form form .inputbox span,
-    .box .form form .imgbox span {
+    .box .form form .inputbox span{
         font-size: 12px;
     }
     .box .form form .submit {
@@ -212,8 +210,7 @@ canvas {
     .box .form h2 {
         font-size: 25px;
     }
-    .box .form form .inputbox span,
-    .box .form form .imgbox span {
+    .box .form form .inputbox span{
         font-size: 10px;
     }
     .box .form form .submit {
@@ -221,70 +218,8 @@ canvas {
     }
 }
 
-.mylocker-form h2,
-.payment-form h2 {
-    text-align: center;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.mylocker-form label,
-.payment-form label {
-    font-size: 16px;
-    color: #fff;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.mylocker-form input,
-.payment-form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.mylocker-form input {
-    background: rgb(255, 255, 255);
-    color: #000; /* Set the initial text color to black */
-}
-
-.payment-form select {
-    background: rgba(255, 255, 255, 0.1);
-    color: #000; /* Set the initial text color to black */
-}
-
-.mylocker-form button,
-.payment-form button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background: #0047AB;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.mylocker-form button:hover,
-.payment-form button:hover {
-    background: #0990b1;
-}
-
-.mylocker-form #userInfoResult,
-.payment-form #feeResult {
-    font-size: 18px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 /* Add styles for the back button */
+.calculateButton,
 .submit{
     margin-top: 20px;
     width: 100%;
@@ -299,6 +234,7 @@ canvas {
     transition: background 0.3s;
 }
 
+.calculateButton:hover,
 .submit:hover{
     background: #0990b1;
 }
@@ -518,10 +454,21 @@ canvas {
     text-align: center;
 }
 
-.priceList label{
+.priceList {
     font-size: 16px;
     color: #fff;
     margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.centered {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 10px; /* Optional: Adjust spacing between label and select */
 }
 
 .priceList table{
@@ -533,7 +480,7 @@ canvas {
 .priceList caption {
     font-size: 24px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     color: #fff;
     padding: 10px;
     border-radius: 5px 5px 0 0; /* Rounded corners only on top */
@@ -566,5 +513,29 @@ canvas {
     border-radius: 5px;
     background: rgba(49, 49, 49, .2);
     border: 1px solid rgba(255, 255, 255, .5);
+}
+
+.caption-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#addShuttlecockButton {
+    margin-left: 0px;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+
+#addShuttlecockButton:hover {
+    background: #0990b1;
 }
 

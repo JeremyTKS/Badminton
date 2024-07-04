@@ -81,7 +81,6 @@ async function fetchBookingData() {
             row.innerHTML = `
                 <td>${count}</td>
                 <td>${name}</td>
-                <td>${matricNumber}</td>
                 <td>${payment}</td>
                 <td><button class="paymentButton" data-name="${name}" data-paid="${bookingData[name]}">${bookingData[name] ? 'Undo' : 'Pay'}</button></td>
             `;
