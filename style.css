@@ -1,0 +1,570 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(img/bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-direction: column;
+    padding: 0; /* Remove top padding to ensure perfect centering */
+}
+
+header {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    background: none; /* No background */
+}
+
+header h1 {
+    font-size: 40px;
+    color: #fff;
+}
+
+header h2 {
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.box {
+    padding: 20px 30px;
+    max-width: 350px;
+    width: 90%;
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+}
+
+.box-user{
+    padding: 20px 30px;
+    max-width: 500px;
+    width: 90%;
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    text-align: left;
+    color: #fff;
+}
+
+table th {
+    background: rgba(0, 71, 171, 0.7);
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+table tr:hover {
+    background: rgba(9, 144, 177, 0.3);
+}
+
+.table-wrapper {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.box .form {
+    padding: 10px 20px;
+}
+
+.box .form h2 {
+    text-align: center;
+    color: #fff;
+}
+
+.box .form form {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.box .form form .inputbox{
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.box .form form .inputbox input{
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 1px solid #ffffff;
+    color: #fff;
+    width: 100%;
+}
+
+.box .form form .inputbox span{
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.optionButton {
+    padding: 15px 20px;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: #0047AB;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.optionButton:hover {
+    background: #0990b1;
+}
+
+canvas {
+    margin: 0 auto; /* Center horizontally */
+    margin-top: 20px;
+    display: block;
+    max-width: 100%; /* Ensure the canvas doesn't exceed the box width */
+}
+
+/* Add media queries for different screen sizes */
+@media (max-width: 1200px) {
+    header h1 {
+        font-size: 35px;
+    }
+    header h2 {
+        font-size: 18px;
+    }
+    .box .form h2 {
+        font-size: 35px;
+    }
+    .box .form form .inputbox span,
+    .box .form form .imgbox span {
+        font-size: 12px;
+    }
+    .box .form form .submit {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 30px;
+    }
+    header h2 {
+        font-size: 16px;
+    }
+    .box {
+        max-width: 100%;
+    }
+    .box .form h2 {
+        font-size: 30px;
+    }
+    .box .form form .inputbox span,
+    .box .form form .imgbox span {
+        font-size: 12px;
+    }
+    .box .form form .submit {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 25px;
+    }
+    header h2 {
+        font-size: 14px;
+    }
+    .box {
+        padding: 10px 20px;
+        max-width: 300px;
+    }
+    .box .form h2 {
+        font-size: 25px;
+    }
+    .box .form form .inputbox span,
+    .box .form form .imgbox span {
+        font-size: 10px;
+    }
+    .box .form form .submit {
+        font-size: 12px;
+    }
+}
+
+.mylocker-form h2,
+.payment-form h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.mylocker-form label,
+.payment-form label {
+    font-size: 16px;
+    color: #fff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.mylocker-form input,
+.payment-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.mylocker-form input {
+    background: rgb(255, 255, 255);
+    color: #000; /* Set the initial text color to black */
+}
+
+.payment-form select {
+    background: rgba(255, 255, 255, 0.1);
+    color: #000; /* Set the initial text color to black */
+}
+
+.mylocker-form button,
+.payment-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.mylocker-form button:hover,
+.payment-form button:hover {
+    background: #0990b1;
+}
+
+.mylocker-form #userInfoResult,
+.payment-form #feeResult {
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Add styles for the back button */
+.submit{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit:hover{
+    background: #0990b1;
+}
+
+.exportButton{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.exportButton:hover {
+    background: #0990b1;
+}
+
+.backButton {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #D35400;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.backButton:hover {
+    background: #EB984E;
+}
+
+.box .form .options #backButton{
+    padding: 15px 20px;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: #D35400;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.box .form .options #backButton:hover{
+    background: #EB984E;
+}
+
+/* Styles for booking.html */
+.booking-header {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    background: none; /* No background */
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.booking-box {
+    padding: 20px 30px;
+    max-width: 350px;
+    width: 90%;
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+    margin: 0 auto; /* Center the box */
+}
+
+.booking-box .form {
+    padding: 10px 20px;
+}
+
+.booking-box .form h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.booking-box .form label {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.booking-box .form input,
+.booking-box .form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.booking-box .form option {
+    color: #000; /* Text color for all options */
+}
+
+/*Booking List*/
+.paymentList label,
+.bookingList label{
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.priceList,
+.paymentList,
+.bookingList {
+    padding: 20px 0px;
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto; /* Center the box */
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+}
+
+
+.paymentList .form,
+.bookingList .form {
+    padding: 20px;
+}
+
+
+.paymentList table,
+.bookingList table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+.paymentList .table-wrapper,
+.bookingList .table-wrapper {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.paymentList th, .paymentList td,
+.bookingList th, .bookingList td {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    text-align: left;
+    color: #fff;
+}
+
+
+.paymentList th,
+.bookingList th {
+    background: rgba(0, 71, 171, 0.7);
+    font-weight: bold;
+}
+
+.paymentList tr:nth-child(even),
+.bookingList tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+.paymentList tr:hover,
+.bookingList tr:hover {
+    background: rgba(9, 144, 177, 0.3);
+}
+
+.paymentList #dateSelector,
+.bookingList #dateSelector {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#fetchButton {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#fetchButton:hover {
+    background-color: #0990b1;
+}
+
+.paymentList option,
+.bookingList option {
+    color: #000; /* Text color for all options */
+}
+
+#paidCount{
+    margin-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.priceList label{
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.priceList table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0px;
+}
+
+.priceList caption {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0 0; /* Rounded corners only on top */
+}
+
+.priceDisplay {
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+}
+
+#totalPrice{
+    margin-top: 10px;
+}
+
+.priceList td{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 8px;
+    text-align: left;
+    color: #fff;
+}
+
+.priceList{
+    padding: 20px 0px;
+    max-width: 500px;
+    width: 90%;
+    margin: 20px auto; /* Center the box */
+    backdrop-filter: blur(50px);
+    border-radius: 5px;
+    background: rgba(49, 49, 49, .2);
+    border: 1px solid rgba(255, 255, 255, .5);
+}
+
