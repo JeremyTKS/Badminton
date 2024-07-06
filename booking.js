@@ -30,6 +30,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // Generate a cache-busting random number
         const cacheBuster = Math.random().toString(36).substring(7); // Generate a random string
+        // Generate the link with cache buster
+        const link = `https://jeremytks.github.io/Badminton/bookLink.html?date=${date}&time=${time}&venue=${venue}&_=${cacheBuster}`;
+
+        // Copy the link to clipboard
+        navigator.clipboard.writeText(link).then(() => {
+            alert(`Link copied to clipboard: ${link}`);
+        }).catch(err => {
+            console.error('Failed to copy link: ', err);
+            alert('Failed to copy link. Please copy manually.');
+        });
         // Redirect to bookinglink.html with query parameters and cache buster
         window.location.href = `bookLink.html?date=${date}&time=${time}&venue=${venue}&_=${cacheBuster}`;
     });
