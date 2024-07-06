@@ -17,71 +17,31 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("generate").addEventListener("click", function() {
+    document.getElementById("booklist").addEventListener("click", function() {
         // Get selected values
         const date = document.getElementById('date').value;
-        const time = document.getElementById('timeSelect').value;
-        const venue = document.getElementById('venueSelect').value;
 
-        if (!date || !time || !venue) {
-            alert("Please fill out Date, Time and Venue before generate.");
-            return;
-        }
-
-        // Generate a cache-busting random number
-        const cacheBuster = Math.random().toString(36).substring(7); // Generate a random string
-        // Redirect to bookinglink.html with query parameters and cache buster
-        window.location.href = `bookLink.html?date=${date}&time=${time}&venue=${venue}&_=${cacheBuster}`;
+        // Redirect to bookinglink.html with query parameters
+        window.location.href = `booklinkList.html?date=${date}`;
     });
+    // Function to parse query parameters
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            date: params.get('date'),
+            time: params.get('time'),
+            venue: params.get('venue')
+        };
+    }
 
-    fetchTimes();
-    fetchVenue();
+    // Populate fields with query parameter values
+    const queryParams = getQueryParams();
+    document.getElementById('date').value = queryParams.date;
+    document.getElementById('time').value = queryParams.time;
+    document.getElementById('venue').value = queryParams.venue;
+
     fetchUsernames();
 });
-
-
-
-// Function to fetch usernames and populate the dropdown
-async function fetchTimes() {
-    try {
-        const timeRef = ref(db, 'Time');
-        const snapshot = await get(timeRef);
-        const data = snapshot.val();
-
-        if (data) {
-            const timeSelect = document.getElementById('timeSelect');
-            for (const time in data) {
-                const option = document.createElement('option');
-                option.value = time;
-                option.textContent = time;
-                timeSelect.appendChild(option);
-            }
-        }
-    } catch (error) {
-        console.error("Error fetching time:", error);
-    }
-}
-
-// Function to fetch usernames and populate the dropdown
-async function fetchVenue() {
-    try {
-        const venueRef = ref(db, 'Venue');
-        const snapshot = await get(venueRef);
-        const data = snapshot.val();
-
-        if (data) {
-            const venueSelect = document.getElementById('venueSelect');
-            for (const venue in data) {
-                const option = document.createElement('option');
-                option.value = venue;
-                option.textContent = venue;
-                venueSelect.appendChild(option);
-            }
-        }
-    } catch (error) {
-        console.error("Error fetching venue:", error);
-    }
-}
 
 // Function to fetch usernames and populate the dropdown
 async function fetchUsernames() {
@@ -106,8 +66,8 @@ async function fetchUsernames() {
 
 function submitBooking() {
     const date = document.getElementById('date').value;
-    const time = document.getElementById('timeSelect').value;
-    const venue = document.getElementById('venueSelect').value;
+    const time = document.getElementById('time').value;
+    const venue = document.getElementById('venue').value;
     const name = document.getElementById('userSelect').value;
 
     // Check if any field is empty
@@ -142,6 +102,8 @@ function submitBooking() {
         // Set the updated booking data
         set(bookingRef, newData).then(() => {
             alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
+            // Clear the user selection after successful booking
+            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
         }).catch(error => {
             console.error("Error adding booking:", error);
             alert("Failed to book. Please try again later.");
@@ -152,14 +114,9 @@ function submitBooking() {
     });
 }
 
+
 // Add event listener for submit button
 const submitButton = document.getElementById('submit');
 submitButton.addEventListener('click', () => {
     submitBooking();
-});
-
-// Add event listener for back button
-const backButton = document.getElementById('backButton');
-backButton.addEventListener('click', () => {
-    window.location.href = 'bookingOp.html'; // Redirect to index.html
 });

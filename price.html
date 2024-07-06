@@ -19,7 +19,12 @@
                 </select>
             </div>
             <table id="courtTable">
-                <caption>Court Pricing</caption>
+                <caption>
+                    <div class="caption-container">
+                        <span>Court Pricing</span>
+                        <button id="resetButton">Reset</button>
+                    </div>
+                </caption>
                 <tr>
                     <td><label for="courtSelector">Select Court:</label></td>
                     <td>
@@ -97,7 +102,10 @@
 
             <div id="totalPrice" class="priceDisplay">Total Price: RM 0</div>
 
-            <button id="calculateButton" class="calculateButton">Calculate</button>
+            <div class="button-container">
+                <button id="calculateButton" class="calculateButton">Calculate</button>
+                <button id="submitButton" class="submitButton">Submit</button>
+            </div>
             <button id="backButton" class="backButton">Back</button>
         </div>
     </div>

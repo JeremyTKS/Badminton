@@ -56,6 +56,7 @@ async function fetchBookingData() {
     const date = document.getElementById('dateSelector').value;
     const bookingRef = ref(db, `Booking/${date}/NameList`);
     const userRef = ref(db, 'User_Data');
+    const priceRef = ref(db, `Booking/${date}/Price/Price_per_Pax`);
 
     try {
         // Fetch booking data
@@ -65,6 +66,10 @@ async function fetchBookingData() {
         // Fetch user data to match matric number
         const userSnapshot = await get(userRef);
         const userData = userSnapshot.val();
+
+        // Fetch price per pax
+        const priceSnapshot = await get(priceRef);
+        let pricePerPax = priceSnapshot.val();
 
         // Populate table with data
         const tableBody = document.getElementById('tableBody');
@@ -90,6 +95,9 @@ async function fetchBookingData() {
 
         // Update paid count
         document.getElementById('paidCount').textContent = `Number of Paid Users: ${paidCount}`;
+
+        // Update price per pax
+        document.getElementById('priceCount').textContent = `Price per Pax: ${pricePerPax}`;
 
         // Add event listeners for payment buttons
         const paymentButtons = document.querySelectorAll('.paymentButton');
@@ -118,6 +126,7 @@ async function updatePaymentStatus(date, nameToUpdate, status) {
 }
 
 function exportToCsv() {
+    const date = document.getElementById('dateSelector').value;
     const table = document.getElementById('tableBody');
     const rows = table.querySelectorAll('tr');
 
@@ -137,7 +146,7 @@ function exportToCsv() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "booking_list.csv");
+    link.setAttribute("download", `payment_list_${date}.csv`);
     document.body.appendChild(link); // Required for Firefox
     link.click(); // Trigger the download
 }

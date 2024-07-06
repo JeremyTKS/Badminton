@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchButton = document.getElementById('fetchButton');
     fetchButton.addEventListener('click', fetchBookingData);
 
+    const removeBookButton = document.getElementById('removeBookButton');
+    removeBookButton.addEventListener('click', removeBooking);
+
     const exportButton = document.getElementById('exportButton');
     exportButton.addEventListener('click', exportToCsv);
 
@@ -98,6 +101,19 @@ async function fetchBookingData() {
     }
 }
 
+async function removeBooking() {
+    const date = document.getElementById('dateSelector').value;
+    const bookingRef = ref(db, `Booking/${date}`);
+    
+    try {
+        await remove(bookingRef);
+        console.log(`Successfully removed booking on ${date}`);
+        location.reload(); // Refresh the table after removal
+    } catch (error) {
+        console.error(`Error removing ${date} booking:`, error);
+    }
+}
+
 async function removeName(date, nameToRemove) {
     const bookingRef = ref(db, `Booking/${date}/NameList/${nameToRemove}`);
     
@@ -111,6 +127,7 @@ async function removeName(date, nameToRemove) {
 }
 
 function exportToCsv() {
+    const date = document.getElementById('dateSelector').value;
     const table = document.getElementById('tableBody');
     const rows = table.querySelectorAll('tr');
 
@@ -130,10 +147,11 @@ function exportToCsv() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "booking_list.csv");
+    link.setAttribute("download", `booking_list_${date}.csv`); // Include the date in the file name
     document.body.appendChild(link); // Required for Firefox
     link.click(); // Trigger the download
 }
+
 
 // Add event listener for back button
 const backButton = document.getElementById('backButton');

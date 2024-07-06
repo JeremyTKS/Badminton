@@ -16,7 +16,9 @@
             <select id="dateSelector">
                 <option value="" disabled selected>Select a Date</option>
             </select>
-            <button id="fetchButton">Fetch Data</button>
+            <div class="button-container">
+                <button id="fetchButton">Fetch Data</button>
+            </div>
             <div class="table-wrapper">
                 <table id="bookingTable">
                     <thead>
@@ -33,6 +35,7 @@
                 </table>
             </div>
             <div id="paidCount" class="paidCount">Number of Paid Users: 0</div>
+            <div id="priceCount" class="priceCount">Price per Pax: RM 0</div>
             <button id="exportButton" class="exportButton">Export</button>
             <button id="backButton" class="backButton">Back</button>
         </div>

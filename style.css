@@ -59,7 +59,6 @@ header h2 {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 table th, table td {
@@ -219,7 +218,8 @@ canvas {
 }
 
 /* Add styles for the back button */
-.calculateButton,
+.booklist,
+.generate,
 .submit{
     margin-top: 20px;
     width: 100%;
@@ -234,7 +234,8 @@ canvas {
     transition: background 0.3s;
 }
 
-.calculateButton:hover,
+.booklist:hover,
+.generate:hover,
 .submit:hover{
     background: #0990b1;
 }
@@ -378,7 +379,6 @@ canvas {
 .bookingList table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 
@@ -414,6 +414,7 @@ canvas {
     background: rgba(9, 144, 177, 0.3);
 }
 
+.bookingList #date,
 .paymentList #dateSelector,
 .bookingList #dateSelector {
     width: 100%;
@@ -427,21 +428,33 @@ canvas {
     color: #fff;
 }
 
-#fetchButton {
+.button-container {
+    display: flex;
+    justify-content: space-between; /* This will position the buttons at the far ends */
+    align-items: center; /* Aligns items vertically in the center */
+    margin-bottom: 15px;
+}
+
+#fetchButton, #removeBookButton, #calculateButton, #submitButton {
     padding: 10px 20px;
     border: none;
     outline: none;
     border-radius: 5px;
     font-size: 16px;
-    background-color: #0047AB;
-    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-#fetchButton:hover {
+#fetchButton, #removeBookButton, #calculateButton, #submitButton  {
+    background-color: #0047AB;
+    color: #fff;
+}
+
+#calculateButton:hover, #submitButton:hover,
+#fetchButton:hover, #removeBookButton:hover {
     background-color: #0990b1;
 }
+
 
 .paymentList option,
 .bookingList option {
@@ -450,6 +463,12 @@ canvas {
 
 #paidCount{
     margin-top: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+#priceCount{
+    margin-top: 10px;
     color: #fff;
     text-align: center;
 }
@@ -474,7 +493,6 @@ label {
 .priceList table{
     width: 100%;
     border-collapse: collapse;
-    margin-top: 0px;
 }
 
 .priceList caption {
@@ -521,6 +539,7 @@ label {
     align-items: center;
 }
 
+#resetButton,
 #addShuttlecockButton {
     margin-left: 0px;
     padding: 5px 10px;
@@ -535,6 +554,7 @@ label {
 }
 
 
+#resetButton:hover,
 #addShuttlecockButton:hover {
     background: #0990b1;
 }

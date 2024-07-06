@@ -1,5 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+// Import the functions from the SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+import { getDatabase, ref, set, get, child, update } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
+import { getStorage, ref as storageRef, uploadBytes } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-storage.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -17,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app); // Initialize the database
 
 // DOM elements
+const resetButton = document.getElementById('resetButton');
 const courtSelector = document.getElementById('courtSelector');
 const daySelector = document.getElementById('daySelector');
 const timeSelector = document.getElementById('timeSelector');
@@ -30,9 +33,15 @@ const shuttlecockPriceDisplay = document.getElementById('shuttlecockPrice');
 const addShuttlecockButton = document.getElementById('addShuttlecockButton');
 const totalPriceDisplay = document.getElementById('totalPrice');
 const calculateButton = document.getElementById('calculateButton');
+const submitButton = document.getElementById('submitButton');
 const backButton = document.getElementById('backButton');
 
 let shuttlecockSelections = []; // Array to store shuttlecock selections
+
+let totalCourtPrice = 0;
+let totalShuttlecockPrice = 0;
+let totalPrice = 0;
+let pricePerPax = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     populateDateDropdown();
@@ -184,6 +193,11 @@ addShuttlecockButton.addEventListener('click', () => {
     }
 });
 
+// Event listener for reset button
+resetButton.addEventListener('click', () => {
+    location.reload()
+});
+
 // Function to display shuttlecock selections and total price
 function displayShuttlecockSelections() {
     let totalPrice = 0;
@@ -232,23 +246,23 @@ calculateButton.addEventListener('click', async () => {
         try {
             const courtSnapshot = await get(courtPriceRef);
             const courtPrice = courtSnapshot.val() || 0;
-            const totalCourtPrice = courtPrice * numCourt * hours;
+            totalCourtPrice = courtPrice * numCourt * hours;
 
             // Calculate total shuttlecock price
-            let totalShuttlecockPrice = 0;
+            totalShuttlecockPrice = 0;
             shuttlecockSelections.forEach((selection) => {
                 totalShuttlecockPrice += selection.price;
             });
 
             // Calculate total price
-            const totalPrice = totalCourtPrice + totalShuttlecockPrice;
+            totalPrice = totalCourtPrice + totalShuttlecockPrice;
             
             // Fetch and calculate name count
             const nameCount = await countNamesInDate(selectedDate);
 
             // Calculate price per pax
-            const pricePerPax = totalPrice / nameCount;
-            totalPriceDisplay.textContent = `Price per pax: RM ${pricePerPax.toFixed(2)} (ToTal RM ${totalPrice.toFixed(2)})`;
+            pricePerPax = totalPrice / nameCount;
+            totalPriceDisplay.textContent = `Price per pax: RM ${pricePerPax.toFixed(2)} (Total RM ${totalPrice.toFixed(2)})`;
 
             // Display total court price
             courtPriceDisplay.textContent = `Court Price: RM ${totalCourtPrice.toFixed(2)} (RM ${courtPrice.toFixed(2)} per hour)`;
@@ -258,6 +272,30 @@ calculateButton.addEventListener('click', async () => {
         }
     } else {
         alert('Please select all options to calculate the total price.');
+    }
+});
+
+// Event listener for submit button
+submitButton.addEventListener('click', async () => {
+    const selectedDate = document.getElementById('dateSelector').value;
+
+    if (selectedDate && totalPrice > 0) {
+        try {
+            // Update or add calculated price to Firebase under the selected date
+            const bookingDateRef = ref(db, `Booking/${selectedDate}/Price`);
+            await update(bookingDateRef, {
+                Court_Price: 'RM '+ totalCourtPrice.toFixed(2),
+                Shuttlecock_Price: 'RM '+ totalShuttlecockPrice.toFixed(2),
+                Total_Price: 'RM '+ totalPrice.toFixed(2),
+                Price_per_Pax: 'RM '+ pricePerPax.toFixed(2),
+            });
+
+            alert('Price details updated successfully!');
+        } catch (error) {
+            console.error('Error updating price details:', error);
+        }
+    } else {
+        alert('Please calculate the total price before submitting.');
     }
 });
 
