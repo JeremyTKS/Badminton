@@ -40,8 +40,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.error('Failed to copy link: ', err);
             alert('Failed to copy link. Please copy manually.');
         });
-        // Redirect to bookinglink.html with query parameters and cache buster
-        window.location.href = `bookLink.html?date=${date}&time=${time}&venue=${venue}&_=${cacheBuster}`;
     });
 
     fetchTimes();
