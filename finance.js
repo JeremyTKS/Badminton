@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("priceButton").addEventListener("click", function() {
-        window.location.href = "price.html";
+    document.getElementById("priceCalButton").addEventListener("click", function() {
+        window.location.href = "priceCal.html";
     });
     document.getElementById("paymentButton").addEventListener("click", function() {
         window.location.href = "payment.html";

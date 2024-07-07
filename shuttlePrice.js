@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     brandTableHeader.innerHTML = `
                         <tr>
                             <th>Model</th>
-                            <th>Price</th>
+                            <th>Price (RM)</th>
                             <th>Action</th>
                         </tr>
                     `;
@@ -118,12 +118,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error deleting price:", error);
             });
         }
-    });
-
-    // Back button functionality
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', () => {
-        window.history.back();
     });
 });
 

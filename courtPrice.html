@@ -12,25 +12,29 @@
     </header>
     <div class="box bookingList">
         <div class="form">
-            <div class="table-wrapper">
-                <table id="courtTable">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Time</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Time data will be populated here -->
-                    </tbody>
-                </table>
+            <div class="table-wrapper" id="courtTableWrapper">
+                <!-- Table will be dynamically populated here -->
             </div>
-            <div class = "newTime">
-                <label for="newTime">Add New Time:</label>
-                <input type="text" id="newTime" name="newTime">
-                <button id="addTimeButton">Add Time</button>
+            <div class="newPrice">
+                <h2>Add New Court</h2>
+                <div class="input-group">
+                    <label for="court">Court:</label>
+                    <input type="text" id="court" name="court">
+                </div>
+                <div class="input-group">
+                    <label for="Day">Day:</label>
+                    <input type="text" id="day" name="day">
+                </div>
+                <div class="input-group">
+                    <label for="Time">Time:</label>
+                    <input type="text" id="time" name="time">
+                </div>
+                <div class="input-group">
+                    <label for="price">Price:</label>
+                    <input type="text" id="price" name="price">
+                </div>
             </div>
+            <button id="addPriceButton" class="addPriceButton">Add Price</button>
             <button id="backButton" class="backButton">Back</button>
         </div>
     </div>

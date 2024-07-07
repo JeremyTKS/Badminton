@@ -218,6 +218,8 @@ canvas {
 }
 
 /* Add styles for the back button */
+.addTimeButton,
+.addVenueButton,
 .addPriceButton,
 .booklist,
 .generate,
@@ -235,6 +237,8 @@ canvas {
     transition: background 0.3s;
 }
 
+.addTimeButton:hover,
+.addVenueButton:hover,
 .addPriceButton:hover,
 .booklist:hover,
 .generate:hover,
@@ -574,25 +578,6 @@ label {
     margin: 5px; /* Add margin around input and button */
 }
 
-.newVenue button,
-.newTime button{
-    margin-left: 0px;
-    padding: 5px 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-size: 14px;
-    background: #0047AB;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.newVenue button:hover,
-.newTime button:hover{
-    background: #0990b1;
-}
-
 .newPrice {
     margin-top: 20px;
 }
@@ -620,45 +605,6 @@ label {
 
 .brand-section h2{
     margin-top: 5px;
-}
-
-/* CSS for shuttlecock price settings */
-.shuttlecock-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.shuttlecock-table th,
-.shuttlecock-table td {
-    padding: 8px;
-    text-align: center; /* Center align all content by default */
-    border: 1px solid #ddd;
-}
-
-.shuttlecock-table th:first-child,
-.shuttlecock-table td:first-child {
-    width: 40%; /* Adjust width for Model column */
-    text-align: left; /* Left align content in Model column */
-}
-
-.shuttlecock-table th:nth-child(2),
-.shuttlecock-table td:nth-child(2) {
-    width: 40%; /* Adjust width for Price column */
-}
-
-.shuttlecock-table th:nth-child(3),
-.shuttlecock-table td:nth-child(3) {
-    width: 20%; /* Adjust width for Action column */
-}
-
-.shuttlecock-table th:nth-child(1) {
-    text-align: center; /* Center align header for Model column */
-}
-
-.shuttlecock-table .delete-button {
-    display: block;
-    margin: 0 auto; /* Center the button horizontally */
 }
 
 #timeTable {
@@ -857,5 +803,80 @@ label {
 #userTable th:nth-child(4),
 #userTable td:nth-child(4) {
     width: 20%; /* Adjust width for Action columns */
+    text-align: center; /* Center align content in the Action columns */
+}
+
+/* CSS for shuttlecock price settings */
+.shuttlecock-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.shuttlecock-table th,
+.shuttlecock-table td {
+    padding: 8px;
+    text-align: center; /* Center align all content by default */
+    border: 1px solid #ddd;
+}
+
+.shuttlecock-table th:first-child,
+.shuttlecock-table td:first-child {
+    width: 40%; /* Adjust width for Model column */
+    text-align: left; /* Left align content in Model column */
+}
+
+.shuttlecock-table th:nth-child(2),
+.shuttlecock-table td:nth-child(2) {
+    width: 40%; /* Adjust width for Price column */
+}
+
+.shuttlecock-table th:nth-child(3),
+.shuttlecock-table td:nth-child(3) {
+    width: 20%; /* Adjust width for Action column */
+}
+
+.shuttlecock-table th:nth-child(1) {
+    text-align: center; /* Center align header for Model column */
+}
+
+.shuttlecock-table .delete-button {
+    display: block;
+    margin: 0 auto; /* Center the button horizontally */
+}
+
+.court-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.court-table th,
+.court-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.court-table th:first-child{
+    width: 40%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+.court-table td:first-child {
+    text-align: left; /* Left align content in the Time column */
+}
+
+.court-table th:nth-child(2) {
+    width: 30%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+.court-table td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+.court-table th:nth-child(3),
+.court-table td:nth-child(3),
+.court-table th:nth-child(4),
+.court-table td:nth-child(4) {
+    width: 15%; /* Adjust width for Action columns */
     text-align: center; /* Center align content in the Action columns */
 }
