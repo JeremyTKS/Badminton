@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Payment List</h1>
+    </header>
+    <div class="box paymentList">
+        <div class="form">
+            <label for="dateSelector">Select Date:</label>
+            <select id="dateSelector">
+                <option value="" disabled selected>Select a Date</option>
+            </select>
+            <div class="button-container">
+                <button id="fetchButton">Fetch Data</button>
+            </div>
+            <div class="table-wrapper">
+                <table id="bookingTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Payment</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- User data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="paidCount" class="paidCount">Number of Paid Users: 0</div>
+            <div id="priceCount" class="priceCount">Price per Pax: RM 0</div>
+            <button id="exportButton" class="exportButton">Export</button>
+            <button id="backButton" class="backButton">Back</button>
+        </div>
+    </div>
+    <script type="module" src="payment.js"></script>
+</body>
+</html>
