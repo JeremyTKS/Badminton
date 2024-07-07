@@ -67,7 +67,6 @@ async function fetchBookingData() {
             row.innerHTML = `
                 <td>${count}</td>
                 <td>${name}</td>
-                <td>${matricNumber}</td>
                 <td><button class="removeButton" data-name="${name}">Remove</button></td>
             `;
             tableBody.appendChild(row);
