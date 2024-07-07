@@ -106,8 +106,10 @@ function submitBooking() {
         const existingData = snapshot.val();
 
         // Check if the name already exists in NameList
-        if (existingData && existingData.NameList && existingData.NameList[name]) {
+        if (existingData && existingData.NameList && existingData.NameList[name] !== undefined) {
             alert(`Booking for ${name} on ${date} already exists. Please choose another name.`);
+            // Clear the user selection after successful booking
+            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
             return;
         }
 

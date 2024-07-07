@@ -138,9 +138,11 @@ function submitBooking() {
     get(bookingRef).then(snapshot => {
         const existingData = snapshot.val();
 
-        // Check if the name already exists in NameList
-        if (existingData && existingData.NameList && existingData.NameList[name]) {
+        // Check if the NameList exists and if the name already exists in it
+        if (existingData && existingData.NameList && existingData.NameList[name] !== undefined) {
             alert(`Booking for ${name} on ${date} already exists. Please choose another name.`);
+            // Clear the user selection after successful booking
+            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
             return;
         }
 
@@ -157,6 +159,8 @@ function submitBooking() {
         // Set the updated booking data
         set(bookingRef, newData).then(() => {
             alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
+            // Clear the user selection after successful booking
+            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
         }).catch(error => {
             console.error("Error adding booking:", error);
             alert("Failed to book. Please try again later.");
