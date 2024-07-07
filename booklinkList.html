@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Booking List</h1>
+    </header>
+    <div class="box bookingList">
+        <div class="form">
+            <label>Date:</label>
+            <input type="text" id="date" readonly>
+            <div class="table-wrapper">
+                <table id="bookTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Action</th> <!-- New column for remove action -->
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- User data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script type="module" src="booklinkList.js"></script>
+</body>
+</html>
