@@ -24,14 +24,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const venue = document.getElementById('venueSelect').value;
 
         if (!date || !time || !venue) {
-            alert("Please fill out Date, Time and Venue before generate.");
+            alert("Please fill out Date, Time and Venue before generating.");
             return;
         }
 
+        // Combine the values into a single string
+        const dataString = JSON.stringify({ date: date, time: time, venue: venue });
+
+        // Encrypt the data string
+        const secretKey = 'JTKS@JieRuiMi@0501@1049'; // Replace with your own secret key
+        const encryptedData = CryptoJS.AES.encrypt(dataString, secretKey).toString();
+
         // Generate a cache-busting random number
         const cacheBuster = Math.random().toString(36).substring(7); // Generate a random string
+
         // Generate the link with cache buster
-        const link = `https://jeremytks.github.io/Badminton/bookLink.html?date=${date}&time=${time}&venue=${venue}&_=${cacheBuster}`;
+        const link = `https://jeremytks.github.io/Badminton/bookLink.html?data=${encodeURIComponent(encryptedData)}&_=${cacheBuster}`;
 
         // Copy the link to clipboard
         navigator.clipboard.writeText(link).then(() => {
@@ -46,7 +54,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchVenue();
     fetchUsernames();
 });
-
 
 
 // Function to fetch usernames and populate the dropdown

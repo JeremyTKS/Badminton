@@ -17,28 +17,38 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("booklist").addEventListener("click", function() {
+    document.getElementById("generate").addEventListener("click", function() {
         // Get selected values
         const date = document.getElementById('date').value;
+        const time = document.getElementById('timeSelect').value;
+        const venue = document.getElementById('venueSelect').value;
 
-        // Redirect to bookinglink.html with query parameters
-        window.location.href = `booklinkList.html?date=${date}`;
+        if (!date || !time || !venue) {
+            alert("Please fill out Date, Time and Venue before generating.");
+            return;
+        }
+
+        // Combine the values into a single string
+        const dataString = JSON.stringify({ date: date, time: time, venue: venue });
+
+        // Encrypt the data string
+        const secretKey = 'TKS@JieRuiMi@0501@1049'; // Replace with your own secret key
+        const encryptedData = CryptoJS.AES.encrypt(dataString, secretKey).toString();
+
+        // Generate a cache-busting random number
+        const cacheBuster = Math.random().toString(36).substring(7); // Generate a random string
+
+        // Generate the link with cache buster
+        const link = `https://jeremytks.github.io/Badminton/bookLink.html?data=${encodeURIComponent(encryptedData)}&_=${cacheBuster}`;
+
+        // Copy the link to clipboard
+        navigator.clipboard.writeText(link).then(() => {
+            alert(`Link copied to clipboard: ${link}`);
+        }).catch(err => {
+            console.error('Failed to copy link: ', err);
+            alert('Failed to copy link. Please copy manually.');
+        });
     });
-    // Function to parse query parameters
-    function getQueryParams() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-            date: params.get('date'),
-            time: params.get('time'),
-            venue: params.get('venue')
-        };
-    }
-
-    // Populate fields with query parameter values
-    const queryParams = getQueryParams();
-    document.getElementById('date').value = queryParams.date;
-    document.getElementById('time').value = queryParams.time;
-    document.getElementById('venue').value = queryParams.venue;
 
     fetchUsernames();
 });
@@ -113,7 +123,6 @@ function submitBooking() {
         alert("Failed to fetch booking data. Please try again later.");
     });
 }
-
 
 // Add event listener for submit button
 const submitButton = document.getElementById('submit');
