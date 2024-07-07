@@ -24,14 +24,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const venue = document.getElementById('venueSelect').value;
 
         if (!date || !time || !venue) {
-            alert("Please fill out Date, Time and Venue before generating.");
+            alert("Please fill out Date, Time, and Venue before generating.");
             return;
         }
 
         // Combine the values into a single string
         const dataString = JSON.stringify({ date: date, time: time, venue: venue });
 
-        // Encrypt the data string
+        // Encrypt the data string (assuming CryptoJS is properly imported)
         const secretKey = 'JTKS@JieRuiMi@0501@1049'; // Replace with your own secret key
         const encryptedData = CryptoJS.AES.encrypt(dataString, secretKey).toString();
 
@@ -41,12 +41,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Generate the link with cache buster
         const link = `https://jeremytks.github.io/Badminton/bookLink.html?data=${encodeURIComponent(encryptedData)}&_=${cacheBuster}`;
 
-        // Copy the link to clipboard
-        navigator.clipboard.writeText(link).then(() => {
-            alert(`Link copied to clipboard: ${link}`);
+        // Compose the invitation message
+        const invitationMessage = `Badminton Invitation:\n${date} ${time} (${venue})\nLink: ${link}`;
+
+        // Copy the invitation message to clipboard
+        navigator.clipboard.writeText(invitationMessage).then(() => {
+            alert(`Invitation copied to clipboard:\n${invitationMessage}`);
         }).catch(err => {
-            console.error('Failed to copy link: ', err);
-            alert('Failed to copy link. Please copy manually.');
+            console.error('Failed to copy invitation: ', err);
+            alert('Failed to copy invitation. Please copy manually.');
         });
     });
 
@@ -54,7 +57,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     fetchVenue();
     fetchUsernames();
 });
-
 
 // Function to fetch usernames and populate the dropdown
 async function fetchTimes() {
