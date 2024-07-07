@@ -17,37 +17,36 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("generate").addEventListener("click", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const encryptedData = urlParams.get('data');
+
+    if (encryptedData) {
+        const secretKey = 'JTKS@JieRuiMi@0501@1049'; // Use the same secret key used for encryption
+        const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+        const decryptedData = JSON.parse(decryptedBytes.toString(CryptoJS.enc.Utf8));
+
+        // Use the decrypted data
+        console.log('Decrypted data:', decryptedData);
+
+        // Set the values in your form or display them as needed
+        document.getElementById('date').value = decryptedData.date;
+        document.getElementById('timeSelect').value = decryptedData.time;
+        document.getElementById('venueSelect').value = decryptedData.venue;
+
+        // Make the fields read-only
+        document.getElementById('date').readOnly = true;
+        document.getElementById('timeSelect').readOnly = true;
+        document.getElementById('venueSelect').readOnly = true;
+    } else {
+        console.error('No encrypted data found in the URL.');
+    }
+
+    document.getElementById("booklist").addEventListener("click", function() {
         // Get selected values
         const date = document.getElementById('date').value;
-        const time = document.getElementById('timeSelect').value;
-        const venue = document.getElementById('venueSelect').value;
 
-        if (!date || !time || !venue) {
-            alert("Please fill out Date, Time and Venue before generating.");
-            return;
-        }
-
-        // Combine the values into a single string
-        const dataString = JSON.stringify({ date: date, time: time, venue: venue });
-
-        // Encrypt the data string
-        const secretKey = 'TKS@JieRuiMi@0501@1049'; // Replace with your own secret key
-        const encryptedData = CryptoJS.AES.encrypt(dataString, secretKey).toString();
-
-        // Generate a cache-busting random number
-        const cacheBuster = Math.random().toString(36).substring(7); // Generate a random string
-
-        // Generate the link with cache buster
-        const link = `https://jeremytks.github.io/Badminton/bookLink.html?data=${encodeURIComponent(encryptedData)}&_=${cacheBuster}`;
-
-        // Copy the link to clipboard
-        navigator.clipboard.writeText(link).then(() => {
-            alert(`Link copied to clipboard: ${link}`);
-        }).catch(err => {
-            console.error('Failed to copy link: ', err);
-            alert('Failed to copy link. Please copy manually.');
-        });
+        // Redirect to bookinglink.html with query parameters
+        window.location.href = `booklinkList.html?date=${date}`;
     });
 
     fetchUsernames();
@@ -123,6 +122,7 @@ function submitBooking() {
         alert("Failed to fetch booking data. Please try again later.");
     });
 }
+
 
 // Add event listener for submit button
 const submitButton = document.getElementById('submit');
