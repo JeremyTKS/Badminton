@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking List</title>
+    <title>Venue Settings</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Booking List</h1>
+        <h1>Venue Settings</h1>
     </header>
     <div class="box bookingList">
         <div class="form">
-            <label>Date:</label>
-            <input type="text" id="date" readonly>
             <div class="table-wrapper">
-                <table id="bookTable">
+                <table id="venueTable">
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Name</th>
-                            <th>Action</th> <!-- New column for remove action -->
+                            <th>Venue</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <!-- User data will be populated here -->
+                        <!-- Time data will be populated here -->
                     </tbody>
                 </table>
             </div>
+            <div class = "newVenue">
+                <label for="newVenue">Add New Venue:</label>
+                <input type="text" id="newVenue" name="newVenue">
+                <button id="addVenueButton">Add Venue</button>
+            </div>
+            <button id="backButton" class="backButton">Back</button>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <script type="module" src="booklinkList.js"></script>
+    <script type="module" src="venueSet.js"></script>
 </body>
 </html>

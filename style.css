@@ -218,6 +218,7 @@ canvas {
 }
 
 /* Add styles for the back button */
+.addPriceButton,
 .booklist,
 .generate,
 .submit{
@@ -234,6 +235,7 @@ canvas {
     transition: background 0.3s;
 }
 
+.addPriceButton:hover,
 .booklist:hover,
 .generate:hover,
 .submit:hover{
@@ -553,9 +555,307 @@ label {
     transition: background 0.3s;
 }
 
-
 #resetButton:hover,
 #addShuttlecockButton:hover {
     background: #0990b1;
 }
 
+.newVenue,
+.newTime {
+    text-align: center; /* Center align the contents */
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+.newVenue label,
+.newVenue input[type="text"],
+.newTime label,
+.newTime input[type="text"]
+{
+    margin: 5px; /* Add margin around input and button */
+}
+
+.newVenue button,
+.newTime button{
+    margin-left: 0px;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #0047AB;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.newVenue button:hover,
+.newTime button:hover{
+    background: #0990b1;
+}
+
+.newPrice {
+    margin-top: 20px;
+}
+
+.newPrice h2 {
+    margin-bottom: 20px;
+}
+
+.newPrice .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.newPrice label {
+    flex: 0 0 60px; /* Adjust width as needed */
+}
+
+.newPrice input {
+    flex: 1;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+
+.brand-section h2{
+    margin-top: 5px;
+}
+
+/* CSS for shuttlecock price settings */
+.shuttlecock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.shuttlecock-table th,
+.shuttlecock-table td {
+    padding: 8px;
+    text-align: center; /* Center align all content by default */
+    border: 1px solid #ddd;
+}
+
+.shuttlecock-table th:first-child,
+.shuttlecock-table td:first-child {
+    width: 40%; /* Adjust width for Model column */
+    text-align: left; /* Left align content in Model column */
+}
+
+.shuttlecock-table th:nth-child(2),
+.shuttlecock-table td:nth-child(2) {
+    width: 40%; /* Adjust width for Price column */
+}
+
+.shuttlecock-table th:nth-child(3),
+.shuttlecock-table td:nth-child(3) {
+    width: 20%; /* Adjust width for Action column */
+}
+
+.shuttlecock-table th:nth-child(1) {
+    text-align: center; /* Center align header for Model column */
+}
+
+.shuttlecock-table .delete-button {
+    display: block;
+    margin: 0 auto; /* Center the button horizontally */
+}
+
+#timeTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#timeTable th,
+#timeTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#timeTable th:first-child,
+#timeTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#timeTable th:nth-child(2) {
+    width: 60%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#timeTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#timeTable th:nth-child(3),
+#timeTable td:nth-child(3) {
+    width: 30%; /* Adjust width for Action column */
+    text-align: center; /* Center align content in the Action column */
+}
+
+
+#venueTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#venueTable th,
+#venueTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#venueTable th:first-child,
+#venueTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#venueTable th:nth-child(2) {
+    width: 60%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#venueTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#venueTable th:nth-child(3),
+#venueTable td:nth-child(3) {
+    width: 30%; /* Adjust width for Action column */
+    text-align: center; /* Center align content in the Action column */
+}
+
+#bookingTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#bookingTable th,
+#bookingTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#bookingTable th:first-child,
+#bookingTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#bookingTable th:nth-child(2) {
+    width: 50%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#bookingTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#bookingTable th:nth-child(3),
+#bookingTable td:nth-child(3),
+#bookingTable th:nth-child(4),
+#bookingTable td:nth-child(4) {
+    width: 20%; /* Adjust width for Action column */
+    text-align: center; /* Center align content in the Action column */
+}
+
+#bookTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#bookTable th,
+#bookTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#bookTable th:first-child,
+#bookTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#bookTable th:nth-child(2) {
+    width: 70%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#bookTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#bookTable th:nth-child(3),
+#bookTable td:nth-child(3) {
+    width: 20%; /* Adjust width for Action column */
+    text-align: center; /* Center align content in the Action column */
+}
+
+#paymentTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#paymentTable th,
+#paymentTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#paymentTable th:first-child,
+#paymentTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#paymentTable th:nth-child(2) {
+    width: 50%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#paymentTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#paymentTable th:nth-child(3),
+#paymentTable td:nth-child(3),
+#paymentTable th:nth-child(4),
+#paymentTable td:nth-child(4) {
+    width: 20%; /* Adjust width for Action columns */
+    text-align: center; /* Center align content in the Action columns */
+}
+
+#userTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#userTable th,
+#userTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#userTable th:first-child,
+#userTable td:first-child {
+    width: 10%; /* Adjust width for No. column */
+    text-align: center; /* Center align content in the No. column */
+}
+
+#userTable th:nth-child(2) {
+    width: 50%; /* Adjust width for Time column */
+    text-align: center; /* Center align content in the header of the Time column */
+}
+
+#userTable td:nth-child(2) {
+    text-align: left; /* Left align content in the Time column */
+}
+
+#userTable th:nth-child(3),
+#userTable td:nth-child(3),
+#userTable th:nth-child(4),
+#userTable td:nth-child(4) {
+    width: 20%; /* Adjust width for Action columns */
+    text-align: center; /* Center align content in the Action columns */
+}
