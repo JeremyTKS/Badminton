@@ -60,69 +60,91 @@ async function fetchBookingData() {
     const bookingRef = ref(db, `Booking/${date}/NameList`);
     const userRef = ref(db, 'User_Data');
 
-    try {
-        // Fetch booking data
-        const snapshot = await get(bookingRef);
-        const bookingData = snapshot.val();
-
-        // Fetch user data to match matric number
-        const userSnapshot = await get(userRef);
-        const userData = userSnapshot.val();
-
-        // Populate table with data
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = ''; // Clear previous table rows
-
-        let count = 1;
-        for (const name in bookingData) {
-            const matricNumber = userData[name]?.MatricNumber || 'Not found';
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${count}</td>
-                <td>${name}</td>
-                <td>${matricNumber}</td>
-                <td><button class="removeButton" data-name="${name}">Remove</button></td>
-            `;
-            tableBody.appendChild(row);
-            count++;
-        }
-
-        // Add event listeners for remove buttons
-        const removeButtons = document.querySelectorAll('.removeButton');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', async () => {
-                const nameToRemove = button.getAttribute('data-name');
-                await removeName(date, nameToRemove);
+    if (date){
+        try {
+            // Fetch booking data
+            const snapshot = await get(bookingRef);
+            const bookingData = snapshot.val();
+    
+            // Fetch user data to match matric number
+            const userSnapshot = await get(userRef);
+            const userData = userSnapshot.val();
+    
+            // Populate table with data
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = ''; // Clear previous table rows
+    
+            let count = 1;
+            for (const name in bookingData) {
+                const matricNumber = userData[name]?.MatricNumber || 'Not found';
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${count}</td>
+                    <td>${name}</td>
+                    <td>${matricNumber}</td>
+                    <td><button class="removeButton" data-name="${name}">Remove</button></td>
+                `;
+                tableBody.appendChild(row);
+                count++;
+            }
+    
+            // Add event listeners for remove buttons
+            const removeButtons = document.querySelectorAll('.removeButton');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const nameToRemove = button.getAttribute('data-name');
+                    await removeName(date, nameToRemove);
+                });
             });
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    } else {
+        alert("Please select a date.");
     }
 }
 
 async function removeBooking() {
     const date = document.getElementById('dateSelector').value;
     const bookingRef = ref(db, `Booking/${date}`);
-    
-    try {
-        await remove(bookingRef);
-        console.log(`Successfully removed booking on ${date}`);
-        location.reload(); // Refresh the table after removal
-    } catch (error) {
-        console.error(`Error removing ${date} booking:`, error);
+
+    if (date){
+        // Confirmation dialog
+        const removeConfirmed = confirm(`Are you sure you want to remove booking on ${date}?`);
+
+        if (removeConfirmed) {
+            try {
+                await remove(bookingRef);
+                console.log(`Successfully removed booking on ${date}`);
+                location.reload(); // Refresh the table after removal
+            } catch (error) {
+                console.error(`Error removing booking on ${date}:`, error);
+            }
+        } else {
+            console.log(`Removal of booking on ${date} canceled by the user.`);
+        }
+    } else {
+        alert("Please select a date.");
     }
 }
 
 async function removeName(date, nameToRemove) {
     const bookingRef = ref(db, `Booking/${date}/NameList/${nameToRemove}`);
     
-    try {
-        await remove(bookingRef);
-        console.log(`Successfully removed ${nameToRemove} from booking on ${date}`);
-        fetchBookingData(); // Refresh the table after removal
-    } catch (error) {
-        console.error(`Error removing ${nameToRemove}:`, error);
+    // Confirmation dialog
+    const userConfirmed = confirm(`Are you sure you want to remove ${nameToRemove} from booking on ${date}?`);
+    
+    if (userConfirmed) {
+        try {
+            await remove(bookingRef);
+            console.log(`Successfully removed ${nameToRemove} from booking on ${date}`);
+            fetchBookingData(); // Refresh the table after removal
+        } catch (error) {
+            console.error(`Error removing ${nameToRemove}:`, error);
+        }
+    } else {
+        console.log(`Removal of ${nameToRemove} canceled by the user.`);
     }
 }
 

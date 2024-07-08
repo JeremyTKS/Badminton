@@ -89,11 +89,18 @@ async function fetchBookingData() {
 async function removeName(date, nameToRemove) {
     const bookingRef = ref(db, `Booking/${date}/NameList/${nameToRemove}`);
     
-    try {
-        await remove(bookingRef);
-        console.log(`Successfully removed ${nameToRemove} from booking on ${date}`);
-        fetchBookingData(); // Refresh the table after removal
-    } catch (error) {
-        console.error(`Error removing ${nameToRemove}:`, error);
+    // Confirmation dialog
+    const userConfirmed = confirm(`Are you sure you want to remove ${nameToRemove} from booking on ${date}?`);
+    
+    if (userConfirmed) {
+        try {
+            await remove(bookingRef);
+            console.log(`Successfully removed ${nameToRemove} from booking on ${date}`);
+            fetchBookingData(); // Refresh the table after removal
+        } catch (error) {
+            console.error(`Error removing ${nameToRemove}:`, error);
+        }
+    } else {
+        console.log(`Removal of ${nameToRemove} canceled by the user.`);
     }
 }

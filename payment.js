@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+import { getDatabase, ref, child, get, remove } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const fetchButton = document.getElementById('fetchButton');
     fetchButton.addEventListener('click', fetchBookingData);
+
+    const removeBookButton = document.getElementById('removeBookButton');
+    removeBookButton.addEventListener('click', removeBooking);
 
     const exportButton = document.getElementById('exportButton');
     exportButton.addEventListener('click', exportToCsv);
@@ -58,58 +61,87 @@ async function fetchBookingData() {
     const userRef = ref(db, 'User_Data');
     const priceRef = ref(db, `Booking/${date}/Price/Price_per_Pax`);
 
-    try {
-        // Fetch booking data
-        const snapshot = await get(bookingRef);
-        const bookingData = snapshot.val();
-
-        // Fetch user data to match matric number
-        const userSnapshot = await get(userRef);
-        const userData = userSnapshot.val();
-
-        // Fetch price per pax
-        const priceSnapshot = await get(priceRef);
-        let pricePerPax = priceSnapshot.val();
-
-        // Populate table with data
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = ''; // Clear previous table rows
-
-        let count = 1;
-        let paidCount = 0;
-        for (const name in bookingData) {
-            const matricNumber = userData[name]?.MatricNumber || 'Not found';
-            const payment = bookingData[name] ? 'Paid' : 'Unpaid';
-            if (bookingData[name]) paidCount++;
-
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${count}</td>
-                <td>${name}</td>
-                <td>${payment}</td>
-                <td><button class="paymentButton" data-name="${name}" data-paid="${bookingData[name]}">${bookingData[name] ? 'Undo' : 'Pay'}</button></td>
-            `;
-            tableBody.appendChild(row);
-            count++;
+    if(date){
+        try {
+            // Fetch booking data
+            const snapshot = await get(bookingRef);
+            const bookingData = snapshot.val();
+    
+            // Fetch user data to match matric number
+            const userSnapshot = await get(userRef);
+            const userData = userSnapshot.val();
+    
+            // Fetch price per pax
+            const priceSnapshot = await get(priceRef);
+            let pricePerPax = priceSnapshot.val();
+    
+            // Populate table with data
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = ''; // Clear previous table rows
+    
+            let count = 1;
+            let paidCount = 0;
+            for (const name in bookingData) {
+                const matricNumber = userData[name]?.MatricNumber || 'Not found';
+                const payment = bookingData[name] ? 'Paid' : 'Unpaid';
+                if (bookingData[name]) paidCount++;
+    
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${count}</td>
+                    <td>${name}</td>
+                    <td>${payment}</td>
+                    <td><button class="paymentButton" data-name="${name}" data-paid="${bookingData[name]}">${bookingData[name] ? 'Undo' : 'Pay'}</button></td>
+                `;
+                tableBody.appendChild(row);
+                count++;
+            }
+    
+            // Update paid count
+            document.getElementById('paidCount').textContent = `Number of Paid Users: ${paidCount}`;
+    
+            // Update price per pax
+            document.getElementById('priceCount').textContent = `Price per Pax: ${pricePerPax}`;
+    
+            // Add event listeners for payment buttons
+            const paymentButtons = document.querySelectorAll('.paymentButton');
+            paymentButtons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const nameToUpdate = button.getAttribute('data-name');
+                    const isPaid = button.getAttribute('data-paid') === 'true';
+                    await updatePaymentStatus(date, nameToUpdate, !isPaid);
+                });
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
 
-        // Update paid count
-        document.getElementById('paidCount').textContent = `Number of Paid Users: ${paidCount}`;
+    } else {
+        alert("Please select a date.");
+    }
+}
 
-        // Update price per pax
-        document.getElementById('priceCount').textContent = `Price per Pax: ${pricePerPax}`;
+async function removeBooking() {
+    const date = document.getElementById('dateSelector').value;
+    const bookingRef = ref(db, `Booking/${date}`);
 
-        // Add event listeners for payment buttons
-        const paymentButtons = document.querySelectorAll('.paymentButton');
-        paymentButtons.forEach(button => {
-            button.addEventListener('click', async () => {
-                const nameToUpdate = button.getAttribute('data-name');
-                const isPaid = button.getAttribute('data-paid') === 'true';
-                await updatePaymentStatus(date, nameToUpdate, !isPaid);
-            });
-        });
-    } catch (error) {
-        console.error('Error fetching data:', error);
+    if (date){
+        // Confirmation dialog
+        const removeConfirmed = confirm(`Are you sure you want to remove booking on ${date}?`);
+
+        if (removeConfirmed) {
+            try {
+                await remove(bookingRef);
+                console.log(`Successfully removed booking on ${date}`);
+                location.reload(); // Refresh the table after removal
+            } catch (error) {
+                console.error(`Error removing booking on ${date}:`, error);
+            }
+        } else {
+            console.log(`Removal of booking on ${date} canceled by the user.`);
+        }
+    } else {
+        alert("Please select a date.");
     }
 }
 

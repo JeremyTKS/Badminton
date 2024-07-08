@@ -40,14 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll('.remove-button').forEach(button => {
                 button.addEventListener('click', (event) => {
                     const key = event.target.getAttribute('data-key');
-                    remove(ref(database, `Venue/${key}`)).then(() => {
-                        // Remove the row from the table
-                        event.target.closest('tr').remove();
-                        // Reload venues after adding
-                        location.reload();
-                    }).catch((error) => {
-                        console.error(error);
-                    });
+                    const removeConfirmed = confirm(`Are you sure you want to remove ${key}?`);
+
+                    if (removeConfirmed) {
+                        remove(ref(database, `Venue/${key}`)).then(() => {
+                            // Remove the row from the table
+                            event.target.closest('tr').remove();
+                            // Reload venues after adding
+                            location.reload();
+                        }).catch((error) => {
+                            console.error(error);
+                        });
+                    } else {
+                        console.log(`Removal of ${key} canceled by the user.`);
+                    }
                 });
             });
         } else {

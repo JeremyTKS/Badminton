@@ -113,18 +113,27 @@ document.addEventListener("DOMContentLoaded", () => {
             const day = e.target.dataset.day;
             const time = e.target.dataset.time;
 
+            const removeCourt = `${courtname} ${day} ${time}`;
+
             const timeRef = ref(database, `Price/Court/${courtname}/${day}/${time}`);
-            set(timeRef, null).then(() => {
-                console.log("Price deleted successfully");
-                displayCourtPrices(); // Refresh the table after deleting
-                // Reset input fields
-                document.getElementById('court').value = '';
-                document.getElementById('day').value = '';
-                document.getElementById('time').value = '';
-                document.getElementById('price').value = '';
-            }).catch((error) => {
-                console.error("Error deleting price:", error);
-            });
+
+            const removeConfirmed = confirm(`Are you sure you want to remove price for ${removeCourt}?`);
+
+            if (removeConfirmed) {
+                set(timeRef, null).then(() => {
+                    console.log("Price deleted successfully");
+                    displayCourtPrices(); // Refresh the table after deleting
+                    // Reset input fields
+                    document.getElementById('court').value = '';
+                    document.getElementById('day').value = '';
+                    document.getElementById('time').value = '';
+                    document.getElementById('price').value = '';
+                }).catch((error) => {
+                    console.error("Error deleting price:", error);
+                });
+            } else {
+                console.log(`Removal of ${removeCourt} canceled by the user.`);
+            }
         }
     });
 });

@@ -58,13 +58,20 @@ async function fetchAndPopulateUserData() {
 
 async function removeName(nameToRemove) {
     const nameRef = ref(database, `User_Data/${nameToRemove}`);
-    
-    try {
-        await remove(nameRef);
-        console.log(`Successfully removed ${nameToRemove} from User Data`);
-        await fetchAndPopulateUserData(); // Fetch updated data and repopulate the table
-    } catch (error) {
-        console.error(`Error removing ${nameToRemove}:`, error);
+
+    // Confirmation dialog
+    const userConfirmed = confirm(`Are you sure you want to remove ${nameToRemove} from database`);
+
+    if (userConfirmed) {
+        try {
+            await remove(nameRef);
+            console.log(`Successfully removed ${nameToRemove} from User Data`);
+            await fetchAndPopulateUserData(); // Fetch updated data and repopulate the table
+        } catch (error) {
+            console.error(`Error removing ${nameToRemove}:`, error);
+        }
+    } else {
+        console.log(`Removal of ${nameToRemove} canceled by the user.`);
     }
 }
 

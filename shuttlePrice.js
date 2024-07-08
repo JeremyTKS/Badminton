@@ -106,17 +106,26 @@ document.addEventListener("DOMContentLoaded", () => {
             const brand = e.target.dataset.brand;
             const model = e.target.dataset.model;
 
+            const removeShuttle = `${brand} ${model})`;
+
             const modelRef = ref(database, `Price/Shuttlecock/${brand}/${model}`);
-            set(modelRef, null).then(() => {
-                console.log("Price deleted successfully");
-                displayShuttlecockPrices(); // Refresh the table after deleting
-                // Reset input fields
-                document.getElementById('brand').value = '';
-                document.getElementById('model').value = '';
-                document.getElementById('price').value = '';
-            }).catch((error) => {
-                console.error("Error deleting price:", error);
-            });
+
+            const removeConfirmed = confirm(`Are you sure you want to remove price for ${removeShuttle}?`);
+            
+            if (removeConfirmed) {
+                set(modelRef, null).then(() => {
+                    console.log("Price deleted successfully");
+                    displayShuttlecockPrices(); // Refresh the table after deleting
+                    // Reset input fields
+                    document.getElementById('brand').value = '';
+                    document.getElementById('model').value = '';
+                    document.getElementById('price').value = '';
+                }).catch((error) => {
+                    console.error("Error deleting price:", error);
+                });
+            } else {
+                console.log(`Removal of ${removeShuttle} canceled by the user.`);
+            }
         }
     });
 });
