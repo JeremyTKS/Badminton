@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const brand = e.target.dataset.brand;
             const model = e.target.dataset.model;
 
-            const removeShuttle = `${brand} ${model})`;
+            const removeShuttle = `${brand} ${model}`;
 
             const modelRef = ref(database, `Price/Shuttlecock/${brand}/${model}`);
 
