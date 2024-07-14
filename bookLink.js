@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -124,7 +124,7 @@ function submitBooking() {
         };
 
         // Set the updated booking data
-        set(bookingRef, newData).then(() => {
+        update(bookingRef, newData).then(() => {
             alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
             // Clear the user selection after successful booking
             document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection

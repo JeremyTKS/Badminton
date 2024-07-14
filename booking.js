@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -45,8 +45,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const invitationMessage = `Badminton Invitation:\nDate: ${date}\nTime: ${time}\nVenue: ${venue}\nLink:\n${link}`;
 
         // Copy the invitation message to clipboard
-        navigator.clipboard.writeText(invitationMessage).then(() => {
+        navigator.clipboard.writeText(invitationMessage).then(async () => {
             alert(`Invitation copied to clipboard:\n${invitationMessage}`);
+
+            try {
+                // Reference to the booking for this specific date
+                const bookingRef = ref(db, `Booking/${date}/`);
+
+                // Fetch existing booking data
+                const snapshot = await get(bookingRef);
+                const existingData = snapshot.val();
+
+                // Add the new link without replacing other content
+                const updatedData = {
+                    ...existingData,
+                    Link: link
+                };
+
+                // Update the booking data with the new link
+                await update(bookingRef, updatedData);
+
+                alert(`Link uploaded successfully for ${date}.`);
+            } catch (error) {
+                console.error("Error uploading link:", error);
+                alert("Failed to upload link. Please try again later.");
+            }
+
         }).catch(err => {
             console.error('Failed to copy invitation: ', err);
             alert('Failed to copy invitation. Please copy manually.');
@@ -159,7 +183,7 @@ function submitBooking() {
         };
 
         // Set the updated booking data
-        set(bookingRef, newData).then(() => {
+        update(bookingRef, newData).then(() => {
             alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
             // Clear the user selection after successful booking
             document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection

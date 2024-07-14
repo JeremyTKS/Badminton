@@ -57,13 +57,14 @@ async function populateDateDropdown() {
 
 async function fetchBookingData() {
     const date = document.getElementById('dateSelector').value;
-    const bookingRef = ref(db, `Booking/${date}/NameList`);
+    const bookingRef = ref(db, `Booking/${date}`);
+    const nameListRef = child(bookingRef, 'NameList');
     const userRef = ref(db, 'User_Data');
 
     if (date){
         try {
             // Fetch booking data
-            const snapshot = await get(bookingRef);
+            const snapshot = await get(nameListRef);
             const bookingData = snapshot.val();
     
             // Fetch user data to match matric number
@@ -97,6 +98,24 @@ async function fetchBookingData() {
                     await removeName(date, nameToRemove);
                 });
             });
+
+            // Fetch and display datebook, timebook, venuebook, and link
+            const timebookRef = child(bookingRef, 'Time');
+            const venuebookRef = child(bookingRef, 'Venue');
+            const linkRef = child(bookingRef, 'Link');
+
+            const [timebookSnapshot, venuebookSnapshot, linkSnapshot] = await Promise.all([
+                get(timebookRef),
+                get(venuebookRef),
+                get(linkRef)
+            ]);
+
+            document.getElementById('timebook').textContent = `Time: ${timebookSnapshot.val() || 'Not available'}`;
+            document.getElementById('venuebook').textContent = `Venue: ${venuebookSnapshot.val() || 'Not available'}`;
+
+            const link = linkSnapshot.val() || 'Not available';
+            document.getElementById('Link').innerHTML = `Link: <a href="${link}" target="_blank">${link}</a>`;
+
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -150,33 +169,20 @@ async function removeName(date, nameToRemove) {
 
 function exportToCsv() {
     const date = document.getElementById('dateSelector').value;
-    const table = document.getElementById('tableBody');
-    const rows = table.querySelectorAll('tr');
-
-    let csvContent = "data:text/csv;charset=utf-8,";
-
-    rows.forEach((row, index) => {
-        const rowData = [];
-        const cols = row.querySelectorAll('td, th');
-
-        cols.forEach(col => {
-            rowData.push(col.innerText);
-        });
-
-        csvContent += rowData.join(',') + "\n";
-    });
-
+    const table = document.getElementById('bookingTable');
+    const rows = Array.from(table.rows);
+    
+    const csvData = rows.map(row => {
+        const cells = Array.from(row.cells);
+        return cells.map(cell => `"${cell.textContent}"`).join(',');
+    }).join('\n');
+    
+    const csvContent = `data:text/csv;charset=utf-8,${csvData}`;
     const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `booking_list_${date}.csv`); // Include the date in the file name
-    document.body.appendChild(link); // Required for Firefox
-    link.click(); // Trigger the download
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `booking_list_${date}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
-
-
-// Add event listener for back button
-const backButton = document.getElementById('backButton');
-backButton.addEventListener('click', () => {
-    window.location.href = 'bookingOp.html'; // Redirect to index.html
-});

@@ -6,6 +6,33 @@
     <title>Booking List</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .info-row div {
+            flex: 1;
+            text-align: center;
+        }
+        .Link {
+            font-size: 15px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            padding: 5px;
+            border-radius: 4px;
+            text-align: center;
+            width: 100%; /* Ensure it doesn't overflow */
+            box-sizing: border-box;
+            color: white; /* Change link color to white */
+        }
+
+        .Link a {
+            color: white; /* Change link color to white */
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -36,6 +63,11 @@
                     </tbody>
                 </table>
             </div>
+            <div class="info-row">
+                <div id="timebook" class="timebook"></div>
+                <div id="venuebook" class="venuebook"></div>
+            </div>
+            <div id="Link" class="Link"><a href=""></a></div>
             <button id="exportButton" class="exportButton">Export</button>
             <button id="backButton" class="backButton">Back</button>
         </div>

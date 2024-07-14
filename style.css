@@ -467,10 +467,28 @@ canvas {
     color: #000; /* Text color for all options */
 }
 
+#timebook,
+#venuebook,
 #paidCount{
-    margin-top: 20px;
+    margin-top: 10px;
     color: #fff;
     text-align: center;
+}
+
+/* Add this to your existing style.css or within a <style> tag in your HTML */
+#Link {
+    color: #fff;
+    font-size: 15px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    text-align: center;
+    width: 100%; /* Ensure it doesn't overflow */
+    box-sizing: border-box;
+}
+
+#Link a {
+    color: lightblue;
+    text-decoration: underline;
 }
 
 #priceCount{
