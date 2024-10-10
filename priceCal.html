@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badminton Price Calculator</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Badminton Price Calculator</h1>
+    </header>
+    <div class="box priceList">
+        <div class="form">
+            <div class="centered">
+                <label for="dateSelector">Select Date:</label>
+                <select id="dateSelector">
+                    <option value="" disabled selected>Select a Date</option>
+                </select>
+            </div>
+            <table id="courtTable">
+                <caption>
+                    <div class="caption-container">
+                        <span>Court Pricing</span>
+                        <button id="resetButton">Reset</button>
+                    </div>
+                </caption>
+                <tr>
+                    <td><label for="courtSelector">Select Court:</label></td>
+                    <td>
+                        <select id="courtSelector">
+                            <option value="" disabled selected>Select a Court</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="daySelector">Select Day:</label></td>
+                    <td>
+                        <select id="daySelector">
+                            <option value="" disabled selected>Select a Day</option>
+                            <!-- Options will be populated dynamically based on selected court -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="timeSelector">Select Time:</label></td>
+                    <td>
+                        <select id="timeSelector">
+                            <option value="" disabled selected>Select a Time</option>
+                            <!-- Options will be populated dynamically based on selected day -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="numCourtInput">Enter Number of Courts:</label></td>
+                    <td><input type="number" id="numCourtInput" min="1" value="1"></td>
+                </tr>
+                <tr>
+                    <td><label for="hoursInput">Enter Hours:</label></td>
+                    <td><input type="number" id="hoursInput" min="1" value="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div id="courtPrice" class="priceDisplay">Court Price: RM 0</div></td>
+                </tr>
+            </table>
+            <table id="shuttlecockTable">
+                <caption>
+                    <div class="caption-container">
+                        <span>Shuttlecock Pricing</span>
+                        <button id="addShuttlecockButton">Add</button>
+                    </div>
+                </caption>
+                <tr>
+                    <td><label for="shuttlecockBrand">Select Brand:</label></td>
+                    <td>
+                        <select id="shuttlecockBrand">
+                            <option value="" disabled selected>Select a Brand</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="shuttlecockModel">Select Model:</label></td>
+                    <td>
+                        <select id="shuttlecockModel">
+                            <option value="" disabled selected>Select a Model</option>
+                            <!-- Options will be populated dynamically based on selected brand -->
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="quantityInput">Enter Quantity:</label></td>
+                    <td><input type="number" id="quantityInput" min="1" value="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div id="shuttlecockPrice" class="priceDisplay">Shuttlecock Price: RM 0</div>
+                    </td>
+                </tr>
+            </table>
+
+            <div id="totalPrice" class="priceDisplay">Total Price: RM 0</div>
+
+            <div class="button-container">
+                <button id="calculateButton" class="calculateButton">Calculate</button>
+                <button id="submitButton" class="submitButton">Submit</button>
+            </div>
+            <button id="backButton" class="backButton">Back</button>
+        </div>
+    </div>
+    <script type="module" src="priceCal.js"></script>
+</body>
+</html>

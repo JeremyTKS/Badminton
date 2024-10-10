@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Settings</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Time Settings</h1>
+    </header>
+    <div class="box bookingList">
+        <div class="form">
+            <div class="table-wrapper">
+                <table id="timeTable">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Time data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class = "newTime">
+                <label for="newTime">Add New Time:</label>
+                <input type="text" id="newTime" name="newTime">
+                
+            </div>
+            <button id="addTimeButton" class="addTimeButton">Add Time</button>
+            <button id="backButton" class="backButton">Back</button>
+        </div>
+    </div>
+    <script type="module" src="timeSet.js"></script>
+</body>
+</html>
