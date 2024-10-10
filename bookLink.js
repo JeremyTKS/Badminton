@@ -101,41 +101,48 @@ function submitBooking() {
     // Reference to the booking for this specific date and venue
     const bookingRef = ref(db, `Booking/${date}/`);
 
-    // Fetch existing booking data to determine the next index
-    get(bookingRef).then(snapshot => {
-        const existingData = snapshot.val();
+    if (bookingRef) {
+        // Fetch existing booking data to determine the next index
+        get(bookingRef).then(snapshot => {
+            const existingData = snapshot.val();
 
-        // Check if the name already exists in NameList
-        if (existingData && existingData.NameList && existingData.NameList[name] !== undefined) {
-            alert(`Booking for ${name} on ${date} already exists. Please choose another name.`);
-            // Clear the user selection after successful booking
-            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
-            return;
-        }
-
-        // Prepare the new structure to add or update
-        const newData = {
-            Time: time,
-            Venue: venue,
-            NameList: {
-                ...existingData?.NameList,
-                [name]: false  // Initialize payment status to false
+            // Check if the name already exists in NameList
+            if (existingData && existingData.NameList && existingData.NameList[name] !== undefined) {
+                alert(`Booking for ${name} on ${date} already exists. Please choose another name.`);
+                // Clear the user selection after successful booking
+                document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
+                return;
             }
-        };
 
-        // Set the updated booking data
-        update(bookingRef, newData).then(() => {
-            alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
-            // Clear the user selection after successful booking
-            document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
+            // Prepare the new structure to add or update
+            const newData = {
+                Time: time,
+                Venue: venue,
+                NameList: {
+                    ...existingData?.NameList,
+                    [name]: false  // Initialize payment status to false
+                }
+            };
+
+            // Set the updated booking data
+            update(bookingRef, newData).then(() => {
+                alert(`Booking confirmed for ${name} on ${date} at ${time} in ${venue}`);
+                // Clear the user selection after successful booking
+                document.getElementById('userSelect').selectedIndex = 0; // Reset to default selection
+            }).catch(error => {
+                console.error("Error adding booking:", error);
+                alert("Failed to book. Please try again later.");
+            });
         }).catch(error => {
-            console.error("Error adding booking:", error);
-            alert("Failed to book. Please try again later.");
+            console.error("Error fetching booking data:", error);
+            alert("Failed to fetch booking data. Please try again later.");
         });
-    }).catch(error => {
+    }
+    else{
         console.error("Error fetching booking data:", error);
-        alert("Failed to fetch booking data. Please try again later.");
-    });
+        alert("Booking does not exist Or Booking had been removed");
+    }
+
 }
 
 
